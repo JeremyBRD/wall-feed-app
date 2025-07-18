@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Wall Feed</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/src/styles.css">
+</head>
+<body>
+
+  <div id="login-screen">
+    <h2>Accès au feed</h2>
+    <input type="password" id="password-input" placeholder="Mot de passe">
+    <button id="access-feed-btn">Accéder</button>
+  </div>
+
+  <div id="feed-screen" class="hidden">
+    <div class="header">
+      <h2>Messages</h2>
+      <button id="add-post-desktop">Ajouter un message</button>
+    </div>
+
+    <div id="feed" class="feed-grid"></div>
+
+    <button id="add-post-mobile" class="floating-button">＋</button>
+  </div>
+
+  <!-- Modal formulaire -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" id="close-modal">×</span>
+      <h3>Nouveau message</h3>
+      <input type="text" id="owner-input" placeholder="Ton prénom ou pseudo">
+      <textarea id="content-input" placeholder="Ton message (1 caractère min.)"></textarea>
+      <input type="file" id="image-input" accept="image/*">
+      <button id="submit-post">Publier</button>
+    </div>
+  </div>
+
+  <script src="/src/api.js"></script>
+  <script src="/src/main.js"></script>
+</body>
+</html>
