@@ -1,0 +1,216 @@
+/* Général */
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  background: #f4f2ef;
+  color: #333;
+}
+
+.hidden {
+  display: none;
+}
+
+h2, h3 {
+  margin: 0 0 10px;
+}
+
+/* Écran de login */
+#login-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#login-screen input {
+  padding: 10px;
+  margin: 10px 0;
+  width: 200px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+#login-screen button {
+  padding: 10px 20px;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#login-screen button:hover {
+  background-color: #444;
+}
+
+/* Feed */
+#feed-screen {
+  padding: 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#add-post-desktop {
+  padding: 10px 15px;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#add-post-desktop:hover {
+  background-color: #444;
+}
+
+/* Grille */
+.feed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.post-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-wrap: break-word;
+}
+
+.post-owner {
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.post-content {
+  font-size: 1rem;
+}
+
+.post-image {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* Bouton flottant mobile */
+.floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: black;
+  color: white;
+  font-size: 24px;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: none;
+  transition: background-color 0.2s ease;
+}
+
+.floating-button:hover {
+  background-color: #444;
+}
+
+@media (max-width: 768px) {
+  #add-post-desktop {
+    display: none;
+  }
+
+  .floating-button {
+    display: block;
+  }
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  width: 90%;
+  max-width: 420px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+  animation: popin 0.2s ease-out;
+}
+
+.modal-content input,
+.modal-content textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+}
+
+.modal-content button {
+  align-self: center;
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.modal-content button:hover {
+  background-color: #444;
+}
+
+#close-modal {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Animation pop-in */
+@keyframes popin {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
