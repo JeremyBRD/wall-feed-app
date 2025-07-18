@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbzOJvcPBMHfTqvET5bWN39vMveiBU7ISV8Oumc1hskYC95H73bokB9fdtbDYFHwuHdk/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbzOJvcPBMHfTqvET5bWN39vMveiBU7ISV8Oumc1hskYC95H73bokB9fdtbDYFHwuHdk/https://script.google.com/macros/s/AKfycbzLenQR1U7K6AVkCM5n_qy0FtAKhs9-BPauRwjdl6dYq1Hj2NIpswkpGKKlhgsTi8Yw/exec";
 
 export async function fetchPosts(password) {
   try {
