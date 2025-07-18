@@ -1,216 +1,185 @@
-/* Général */
 body {
-  font-family: system-ui, sans-serif;
+  font-family: sans-serif;
   margin: 0;
-  background: #f4f2ef;
-  color: #333;
+  padding: 0;
+  background: #f9f9f9;
 }
 
 .hidden {
   display: none;
 }
 
-h2, h3 {
-  margin: 0 0 10px;
-}
-
-/* Écran de login */
-#login-screen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
-#login-screen input {
-  padding: 10px;
-  margin: 10px 0;
-  width: 200px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+#login-screen,
+#feed-screen {
+  padding: 20px;
   text-align: center;
 }
 
-#login-screen button {
-  padding: 10px 20px;
-  background-color: #000;
+input, textarea, button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  font-size: 1em;
+  width: 90%;
+  max-width: 400px;
+}
+
+button {
+  background-color: black;
   color: white;
   border: none;
-  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
-#login-screen button:hover {
-  background-color: #444;
-}
-
-/* Feed */
-#feed-screen {
-  padding: 20px;
-  max-width: 1000px;
-  margin: auto;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-#add-post-desktop {
-  padding: 10px 15px;
-  background-color: #000;
+.custom-file-btn {
+  width: 100%;
+  max-width: 400px;
+  background-color: black;
   color: white;
+  padding: 12px 24px;
   border: none;
   border-radius: 8px;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  text-align: center;
+  display: block;
+  margin: 0 auto 16px auto;
+  transition: background-color 0.3s ease;
 }
 
-#add-post-desktop:hover {
-  background-color: #444;
+.custom-file-btn:hover {
+  background-color: #333;
 }
 
-/* Grille */
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: left;
+  width: 90%;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.required {
+  color: red;
+}
+
 .feed-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 15px;
+  gap: 1rem;
+  padding: 1rem;
 }
 
 .post-card {
-  background-color: white;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 1rem;
   border-radius: 12px;
-  padding: 15px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  overflow-wrap: break-word;
 }
 
 .post-owner {
   font-weight: bold;
-  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
 }
 
 .post-content {
-  font-size: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .post-image {
   max-width: 100%;
   border-radius: 8px;
-  margin-top: 10px;
+  margin-top: 0.5rem;
 }
 
-/* Bouton flottant mobile */
 .floating-button {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  border-radius: 50%;
+  padding: 0.5rem 1rem;
   background-color: black;
   color: white;
-  font-size: 24px;
   border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
   cursor: pointer;
-  display: none;
-  transition: background-color 0.2s ease;
 }
 
-.floating-button:hover {
-  background-color: #444;
-}
-
-@media (max-width: 768px) {
-  #add-post-desktop {
-    display: none;
-  }
-
-  .floating-button {
-    display: block;
-  }
-}
-
-/* Modal */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  display: flex;
+  background-color: rgba(50, 50, 50, 0.7);
+  display: none;
   justify-content: center;
   align-items: center;
-  z-index: 10;
+  z-index: 1000;
 }
 
 .modal-content {
   background: white;
-  padding: 25px;
-  border-radius: 18px;
+  padding: 2rem;
+  border-radius: 12px;
   width: 90%;
-  max-width: 420px;
+  max-width: 500px;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
-  animation: popin 0.2s ease-out;
 }
 
-.modal-content input,
-.modal-content textarea {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 100%;
-  max-width: 320px;
-  text-align: center;
-}
-
-.modal-content button {
-  align-self: center;
-  width: 100%;
-  max-width: 300px;
-  padding: 10px;
-  background: black;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.modal-content button:hover {
-  background-color: #444;
-}
-
-#close-modal {
+.close {
   position: absolute;
-  top: 8px;
-  right: 12px;
-  font-size: 22px;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.2rem;
   cursor: pointer;
 }
 
-/* Animation pop-in */
-@keyframes popin {
-  0% {
-    transform: scale(0.95);
-    opacity: 0;
+#add-post-mobile,
+#add-post-desktop {
+  display: none;
+}
+
+/* Style du bouton mobile (+) */
+#add-post-mobile {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: black;
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  cursor: pointer;
+}
+
+/* Mobile seulement */
+@media (max-width: 768px) {
+  #add-post-mobile {
+    display: flex;
   }
-  100% {
-    transform: scale(1);
-    opacity: 1;
+  #add-post-desktop {
+    display: none;
+  }
+}
+
+/* Desktop et tablette */
+@media (min-width: 769px) {
+  #add-post-mobile {
+    display: none;
+  }
+  #add-post-desktop {
+    display: block;
   }
 }

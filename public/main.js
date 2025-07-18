@@ -3,7 +3,6 @@ import { fetchPosts, createPost } from "./api.js";
 let currentPassword = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Elements
   const loginScreen = document.getElementById("login-screen");
   const feedScreen = document.getElementById("feed-screen");
   const passwordInput = document.getElementById("password-input");
@@ -15,25 +14,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeModalBtn = document.getElementById("close-modal");
   const submitPostBtn = document.getElementById("submit-post");
 
-  // Form fields
   const ownerInput = document.getElementById("owner-input");
   const contentInput = document.getElementById("content-input");
   const imageInput = document.getElementById("image-input");
 
-  // Show modal
   const showModal = () => {
-    modal.classList.remove("hidden");
+    modal.style.display = "flex";
   };
 
-  // Hide modal
   const hideModal = () => {
-    modal.classList.add("hidden");
+    modal.style.display = "none";
     ownerInput.value = "";
     contentInput.value = "";
     imageInput.value = "";
   };
 
-  // Display posts
+  closeModalBtn.addEventListener("click", hideModal);
+  addPostDesktopBtn.addEventListener("click", showModal);
+  addPostMobileBtn.addEventListener("click", showModal);
+
   const displayPosts = (posts) => {
     feedContainer.innerHTML = "";
     posts.forEach(post => {
@@ -60,9 +59,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       feedContainer.appendChild(card);
     });
+
+    document.querySelectorAll(".post-card").forEach(card => {
+      const img = card.querySelector(".post-image")
+      if (!img || !img.src || img.name === "") {
+        img.style.display = "none";
+      }
+    });
   };
 
-  // Encode file to base64
   const encodeImageToBase64 = (file) => {
     return new Promise((resolve, reject) => {
       if (!file) return resolve("");
@@ -73,7 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // Handle access
   accessFeedBtn.addEventListener("click", async () => {
     const password = passwordInput.value.trim();
     try {
@@ -87,12 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Show modal buttons
-  addPostDesktopBtn.addEventListener("click", showModal);
-  addPostMobileBtn.addEventListener("click", showModal);
-  closeModalBtn.addEventListener("click", hideModal);
-
-  // Submit new post
   submitPostBtn.addEventListener("click", async () => {
     const owner = ownerInput.value.trim();
     const content = contentInput.value.trim();
