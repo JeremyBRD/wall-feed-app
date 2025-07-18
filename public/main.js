@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const contentInput = document.getElementById("content-input");
   const imageInput = document.getElementById("image-input");
 
+  const imageInfo = document.getElementById("image-info");
+  const imageLabel = document.querySelector("label[for='image-input']");
+
   const showModal = () => {
     modal.style.display = "flex";
   };
@@ -27,11 +30,29 @@ document.addEventListener("DOMContentLoaded", () => {
     ownerInput.value = "";
     contentInput.value = "";
     imageInput.value = "";
+
+    // Reset de l'affichage image
+    imageInfo.classList.add("hidden");
+    imageInfo.textContent = "";
+    imageLabel.textContent = "Ajouter une photo";
   };
 
   closeModalBtn.addEventListener("click", hideModal);
   addPostDesktopBtn.addEventListener("click", showModal);
   addPostMobileBtn.addEventListener("click", showModal);
+
+  imageInput.addEventListener("change", () => {
+    const file = imageInput.files[0];
+    if (file) {
+      imageInfo.textContent = `📸 ${file.name}`;
+      imageInfo.classList.remove("hidden");
+      imageLabel.textContent = "Changer la photo";
+    } else {
+      imageInfo.classList.add("hidden");
+      imageInfo.textContent = "";
+      imageLabel.textContent = "Ajouter une photo";
+    }
+  });
 
   const displayPosts = (posts) => {
     feedContainer.innerHTML = "";
@@ -61,9 +82,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.querySelectorAll(".post-card").forEach(card => {
-      const img = card.querySelector(".post-image")
-      if (!img || !img.src || img.name === "") {
-        img.style.display = "none";
+      const img = card.querySelector(".post-image");
+      if (!img || !img.name) {
+        if (img) img.style.display = "none";
       }
     });
   };

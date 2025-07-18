@@ -31,6 +31,17 @@ button {
   cursor: pointer;
 }
 
+/* -------- Custom file upload -------- */
+#image-input {
+  display: none;
+}
+
+.file-upload-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .custom-file-btn {
   width: 100%;
   max-width: 400px;
@@ -51,6 +62,19 @@ button {
   background-color: #333;
 }
 
+#image-info {
+  font-size: 0.9em;
+  color: #333;
+  text-align: center;
+  margin-bottom: 16px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  word-break: break-all;
+}
+
+
+/* ------------------------------------ */
 
 label {
   display: block;
@@ -133,8 +157,8 @@ label {
 
 .close {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 5%;
+  right: 5%;
   font-size: 1.2rem;
   cursor: pointer;
 }
@@ -181,5 +205,24 @@ label {
   }
   #add-post-desktop {
     display: block;
+  }
+}
+
+/* Version mobile : pas de max-width */
+@media screen and (max-width: 480px) {
+  .custom-file-btn,
+  #submit-post {
+    max-width: none;
+    width: 100%;
+    margin: 0 0 16px 0;
+    border-radius: 0;
+  }
+
+  .modal-content {
+    border-radius: 0;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    justify-content: center;
   }
 }
