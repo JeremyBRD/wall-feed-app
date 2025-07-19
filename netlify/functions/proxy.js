@@ -1,52 +1,60 @@
 // netlify/functions/proxy.js
-const fetch = require('node-fetch'); // Nécessaire si vous utilisez Node.js < 18
+const fetch = require('node-fetch');
 
 exports.handler = async function(event, context) {
-  const appsScriptUrl = process.env.APPS_SCRIPT_URL; // Stockez votre URL Apps Script dans les variables d'environnement Netlify
+  const appsScriptUrl = process.env.APPS_SCRIPT_URL;
 
   if (!appsScriptUrl) {
+    console.error("APPS_SCRIPT_URL environment variable not set.");
     return {
       statusCode: 500,
       body: JSON.stringify({ error: "APPS_SCRIPT_URL environment variable not set." })
     };
   }
 
-  // Reconstruire l'URL avec les query parameters du frontend
   const url = new URL(appsScriptUrl);
+  // Ajouter les query parameters du GET
   for (const key in event.queryStringParameters) {
     url.searchParams.append(key, event.queryStringParameters[key]);
   }
 
-  try {
-    let response;
-    if (event.httpMethod === 'POST') {
-      // Gérer les requêtes POST
-      response = await fetch(url.toString(), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: event.body // Le corps de la requête POST du frontend
-      });
-    } else {
-      // Gérer les requêtes GET (et OPTIONS si elles sont redirigées ici)
-      response = await fetch(url.toString(), {
-        method: event.httpMethod // Utilisez la méthode originale (GET, OPTIONS)
-      });
-    }
+  let requestOptions = {
+    method: event.httpMethod,
+    headers: {} // Initialiser les headers
+  };
 
-    const data = await response.text(); // Utilisez .text() pour éviter les erreurs de parsing si le JSON est invalide
+  if (event.httpMethod === 'POST') {
+    requestOptions.headers['Content-Type'] = 'application/json';
+    // Le corps de la requête POST est déjà une chaîne dans event.body pour les fonctions Netlify
+    requestOptions.body = event.body;
+    console.log("Proxy POST request body:", event.body); // Pour le débogage
+  } else if (event.httpMethod === 'OPTIONS') {
+    // Pour la preflight OPTIONS request, Content-Type peut être vide ou un autre type
+    // On ne met pas de corps pour OPTIONS
+    console.log("Proxy OPTIONS request received.");
+  }
+
+  try {
+    const response = await fetch(url.toString(), requestOptions);
+    const data = await response.text(); // Récupère le texte brut pour éviter les erreurs de parsing
+
+    console.log("Proxy response status:", response.status);
+    console.log("Proxy response headers:", response.headers.raw());
+    console.log("Proxy response body (truncated):", data.substring(0, 200)); // Log partiel du corps
 
     return {
       statusCode: response.status,
       headers: {
         'Content-Type': response.headers.get('Content-Type') || 'application/json',
-        'Access-Control-Allow-Origin': '*', // Autorise toutes les origines pour le proxy, ou 'https://wallfeedapp.netlify.app'
+        'Access-Control-Allow-Origin': 'https://wallfeedapp.netlify.app', // Spécifique à votre domaine Netlify
         'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         'Access-Control-Max-Age': '86400' // Cache preflight requests for 24 hours
       },
-      body: data
+      body: data // Renvoyer le corps brut tel quel
     };
   } catch (error) {
+    console.error("Proxy fetch error:", error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: `Proxy error: ${error.message}` })
