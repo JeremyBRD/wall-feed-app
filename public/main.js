@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll(".post-card").forEach(card => {
       const img = card.querySelector(".post-image");
-      if (!img || !img.name) {
+      if (!img || !img) {
         if (img) img.style.display = "none";
       }
     });
