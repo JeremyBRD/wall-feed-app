@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbwPjeDDHcThr9eGYDslhcZz8QXh6VuO-y7m2mJLu2JsyEI5znDSQtQmBW-B_oXxdTyD/exec";
+const API_URL = "/.netlify/functions/proxy";
 
 export async function fetchPosts(password) {
   try {
