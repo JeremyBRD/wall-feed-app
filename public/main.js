@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const imageInfo = document.getElementById("image-info");
   const imageLabel = document.querySelector("label[for='image-input']");
 
+  const feedTitleElement = document.getElementById("feed-title"); // Nouveau : cibler l'élément du titre
+
   const showModal = () => {
     modal.style.display = "flex";
   };
@@ -31,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
     contentInput.value = "";
     imageInput.value = "";
 
-    // Reset de l'affichage image
     imageInfo.classList.add("hidden");
     imageInfo.textContent = "";
     imageLabel.textContent = "Ajouter une photo";
@@ -102,11 +103,14 @@ document.addEventListener("DOMContentLoaded", () => {
   accessFeedBtn.addEventListener("click", async () => {
     const password = passwordInput.value.trim();
     try {
-      const posts = await fetchPosts(password);
+      const response = await fetchPosts(password); // Change ici : la réponse est un objet
       currentPassword = password;
       loginScreen.classList.add("hidden");
       feedScreen.classList.remove("hidden");
-      displayPosts(posts);
+      displayPosts(response.posts); // Accède aux posts via response.posts
+      if (response.feedName && feedTitleElement) {
+        feedTitleElement.textContent = response.feedName; // Met à jour le titre du feed
+      }
     } catch (err) {
       alert("Mot de passe invalide !");
     }
@@ -126,8 +130,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const image_base64 = await encodeImageToBase64(imageFile);
       await createPost({ password: currentPassword, owner, content, image_base64 });
       hideModal();
-      const posts = await fetchPosts(currentPassword);
-      displayPosts(posts);
+      const response = await fetchPosts(currentPassword); // Change ici : la réponse est un objet
+      displayPosts(response.posts); // Accède aux posts via response.posts
     } catch (err) {
       alert("Erreur lors de la publication.");
     }
