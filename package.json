@@ -1,0 +1,16 @@
+{
+  "name": "wall-feed-app",
+  "version": "1.0.0",
+  "description": "A simple wall feed application using Google Sheets and Netlify Functions.",
+  "main": "index.html",
+  "scripts": {
+    "start": "netlify dev",
+    "build": "echo 'No specific build step for static site + functions'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
+}
